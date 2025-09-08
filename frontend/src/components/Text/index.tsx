@@ -2,40 +2,51 @@ import type { HTMLAttributes } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 type TextProps = {
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-  color: 'cyan';
+  size?:
+    | 'xs'
+    | 'sm'
+    | 'md'
+    | 'lg'
+    | 'xl'
+    | '2xl'
+    | '3xl'
+    | '4xl'
+    | '5xl'
+    | '6xl';
+  color: 'cyan' | 'gray' | 'red' | 'textDefault';
+  bold?: boolean;
 } & HTMLAttributes<HTMLSpanElement>;
 
-const Text = ({ size = 'sm', color, ...props }: TextProps) => {
-  let className = props.className;
+const Text = ({ size = 'sm', color, bold, ...props }: TextProps) => {
+  const sizeClassNames: Record<NonNullable<TextProps['size']>, string> = {
+    xs: 'text-xs',
+    sm: 'text-sm',
+    md: 'text-md',
+    lg: 'text-lg',
+    xl: 'text-xl',
+    '2xl': 'text-2xl',
+    '3xl': 'text-3xl',
+    '4xl': 'text-4xl',
+    '5xl': 'text-5xl',
+    '6xl': 'text-6xl',
+  };
 
-  switch (size) {
-    case 'xs':
-      className = twMerge(className, 'text-xs');
-      break;
-    case 'sm':
-      className = twMerge(className, 'text-sm');
-      break;
-    case 'md':
-      className = twMerge(className, 'text-md');
-      break;
-    case 'lg':
-      className = twMerge(className, 'text-lg');
-      break;
-    case 'xl':
-      className = twMerge(className, 'text-xl');
-      break;
-    default:
-      const sizeCheck: never = size;
-  }
+  const colorClassNames: Record<TextProps['color'], string> = {
+    red: 'text-red-400',
+    cyan: 'text-cyan-400',
+    textDefault: 'text-gray-300',
+    gray: 'text-gray-400',
+  };
 
-  switch (color) {
-    case 'cyan':
-      className = twMerge(className, 'text-cyan-400');
-      break;
-    default:
-      const colorCheck: never = color;
-  }
+  const boldClassName = bold ? 'bold' : undefined;
+
+  const className = twMerge(
+    'font-sans',
+    sizeClassNames[size],
+    colorClassNames[color],
+    boldClassName,
+    props.className
+  );
 
   return <span {...props} className={className} />;
 };

@@ -1,1 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Monoton&family=Revalia&display=swap');
+
 @import "tailwindcss";
+
+@theme {
+  --font-brand: "Monoton", sans-serif;
+}
