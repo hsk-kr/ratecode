@@ -87,6 +87,7 @@ const Editor = ({ onCodeChange }: EditorProps) => {
         <AceEditor
           width="100%"
           height="350px"
+          placeholder="Write or paste code here…"
           mode={language}
           theme="tomorrow_night"
           onChange={handleCodeChange}

@@ -13,7 +13,17 @@ type TextProps = {
     | '4xl'
     | '5xl'
     | '6xl';
-  color: 'cyan' | 'gray' | 'red' | 'textDefault';
+  color:
+    | 'cyan'
+    | 'gray'
+    | 'blue'
+    | 'red'
+    | 'purple'
+    | 'green'
+    | 'orange'
+    | 'yellow'
+    | 'teal'
+    | 'textDefault';
   bold?: boolean;
 } & HTMLAttributes<HTMLSpanElement>;
 
@@ -32,10 +42,16 @@ const Text = ({ size = 'sm', color, bold, ...props }: TextProps) => {
   };
 
   const colorClassNames: Record<TextProps['color'], string> = {
+    textDefault: 'text-gray-300',
     red: 'text-red-400',
     cyan: 'text-cyan-400',
-    textDefault: 'text-gray-300',
     gray: 'text-gray-400',
+    blue: 'text-blue-400',
+    green: 'text-green-400',
+    teal: 'text-teal-400',
+    purple: 'text-purple-400',
+    yellow: 'text-yellow-400',
+    orange: 'text-orange-400',
   };
 
   const boldClassName = bold ? 'bold' : undefined;
