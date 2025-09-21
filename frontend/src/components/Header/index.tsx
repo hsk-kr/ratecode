@@ -9,9 +9,11 @@ const Header = () => {
         <Link to="/">
           <BrandLabel size="md" />
         </Link>
-        <Button color="cyan" icon="profile" varient="outline">
-          Sign In
-        </Button>
+        <Link to="/signin">
+          <Button color="cyan" icon="profile" varient="outline">
+            Sign In
+          </Button>
+        </Link>
       </div>
     </nav>
   );

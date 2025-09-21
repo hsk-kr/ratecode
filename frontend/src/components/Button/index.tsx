@@ -9,7 +9,7 @@ type ButtonProps = {
   hoverAction?: 'scale';
   icon?: keyof typeof icons;
   wide?: boolean;
-  size?: 'sm';
+  size?: 'sm' | 'md' | 'lg';
   varient?: 'outline' | 'fill';
   color: 'cyan' | 'purple';
 } & ButtonHTMLAttributes<HTMLButtonElement>;
@@ -43,6 +43,8 @@ const Button = ({
 
   const sizeClassNames: Record<NonNullable<ButtonProps['size']>, string> = {
     sm: 'text-sm',
+    md: 'text-md',
+    lg: 'text-lg',
   };
 
   const varientClassNames: Record<
@@ -57,11 +59,11 @@ const Button = ({
     cyan:
       varient === 'outline'
         ? 'border-cyan-400 text-cyan-400 hover:text-black hover:bg-cyan-400'
-        : 'bg-cyan-500 hover:bg-cyan-400',
+        : 'bg-cyan-600 hover:bg-cyan-500 text-white',
     purple:
       varient === 'outline'
         ? 'border-purple-400 text-purple-400 hover:text-black hover:bg-purple-400'
-        : 'bg-purple-500 hover:bg-purple-400',
+        : 'bg-purple-600 hover:bg-purple-500 text-white',
   };
 
   className = twMerge(

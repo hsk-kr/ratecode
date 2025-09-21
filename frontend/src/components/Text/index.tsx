@@ -21,6 +21,7 @@ type TextProps = {
     | 'purple'
     | 'green'
     | 'orange'
+    | 'white'
     | 'yellow'
     | 'teal'
     | 'textDefault';
@@ -48,6 +49,7 @@ const Text = ({ size = 'sm', color, bold, ...props }: TextProps) => {
     gray: 'text-gray-400',
     blue: 'text-blue-400',
     green: 'text-green-400',
+    white: 'text-white',
     teal: 'text-teal-400',
     purple: 'text-purple-400',
     yellow: 'text-yellow-400',

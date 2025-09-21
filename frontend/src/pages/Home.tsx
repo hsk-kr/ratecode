@@ -17,7 +17,7 @@ const Home = () => {
     <>
       <div className="flex flex-col items-center gap-4">
         <BrandLabel size="xl" />
-        <div className="flex gap-1 mb-8">
+        <div className="flex gap-1 mb-8 flex-col md:flex-row">
           <Text color="textDefault" size="lg">
             How does your code look outside your eyes?{' '}
           </Text>
@@ -44,7 +44,7 @@ const Home = () => {
           Rate Others
         </Button>
       </div>
-      <Box center className="max-w-3xl mx-auto">
+      <Box color="gray" center className="max-w-3xl mx-auto">
         <Text color="cyan" size="xl" className="mb-8">
           What's readable code?
         </Text>
