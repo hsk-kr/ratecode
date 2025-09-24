@@ -13,7 +13,7 @@ type TextProps = {
     | '4xl'
     | '5xl'
     | '6xl';
-  color:
+  color?:
     | 'cyan'
     | 'gray'
     | 'blue'
@@ -28,7 +28,12 @@ type TextProps = {
   bold?: boolean;
 } & HTMLAttributes<HTMLSpanElement>;
 
-const Text = ({ size = 'sm', color, bold, ...props }: TextProps) => {
+const Text = ({
+  size = 'sm',
+  color = 'textDefault',
+  bold,
+  ...props
+}: TextProps) => {
   const sizeClassNames: Record<NonNullable<TextProps['size']>, string> = {
     xs: 'text-xs',
     sm: 'text-sm',
