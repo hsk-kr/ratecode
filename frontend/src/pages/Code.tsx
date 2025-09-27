@@ -7,6 +7,7 @@ import CodeViewer from '../components/CodeViewer';
 import DateLabel from '../components/DateLabel';
 import Text from '../components/Text';
 import Views from '../components/Views';
+import Rate from '../components/Rate';
 
 const Code = () => {
   return (
@@ -15,7 +16,7 @@ const Code = () => {
       <Guide />
       <Buttons />
       <CodeViewer title="fabcdd" language="javascript" />
-      <div className="flex justify-center mt-8">hi</div>
+      <Rate />
     </div>
   );
 };
