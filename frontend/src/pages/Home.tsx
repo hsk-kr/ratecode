@@ -6,12 +6,18 @@ import Text from '../components/Text';
 import Box from '../components/Box';
 import NoteList from '../components/NoteList';
 import Divider from '../components/Divider';
+import { useNavigate } from 'react-router';
 
 const Home = () => {
   // TODO: use hook
   const [code, setCode] = useState('');
+  const navigate = useNavigate();
 
   const shareDisabled = code.length === 0;
+
+  const navigateRandomCode = () => {
+    navigate('code/1');
+  };
 
   return (
     <>
@@ -40,7 +46,7 @@ const Home = () => {
         >
           Share
         </Button>
-        <Button color="purple" icon="branch" wide>
+        <Button color="purple" icon="branch" wide onClick={navigateRandomCode}>
           Rate Others
         </Button>
       </div>

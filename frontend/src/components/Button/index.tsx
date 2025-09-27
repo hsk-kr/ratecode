@@ -1,9 +1,11 @@
-import type { ButtonHTMLAttributes, HTMLAttributes } from 'react';
+import type { ButtonHTMLAttributes } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 import { IoPerson } from 'react-icons/io5';
+import { IoCodeOutline } from 'react-icons/io5';
 import { FaCodeBranch } from 'react-icons/fa';
 import { FaCloudUploadAlt } from 'react-icons/fa';
+import { MdOutlineContentCopy } from 'react-icons/md';
 
 type ButtonProps = {
   hoverAction?: 'scale';
@@ -11,13 +13,15 @@ type ButtonProps = {
   wide?: boolean;
   size?: 'sm' | 'md' | 'lg';
   varient?: 'outline' | 'fill';
-  color: 'cyan' | 'purple';
+  color: 'cyan' | 'purple' | 'gray';
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
 const icons = {
   profile: IoPerson,
   branch: FaCodeBranch,
   cloudUpload: FaCloudUploadAlt,
+  code: IoCodeOutline,
+  copy: MdOutlineContentCopy,
 };
 
 const Button = ({
@@ -42,9 +46,9 @@ const Button = ({
   };
 
   const sizeClassNames: Record<NonNullable<ButtonProps['size']>, string> = {
-    sm: 'text-sm',
-    md: 'text-md',
-    lg: 'text-lg',
+    sm: 'text-xs md:text-sm',
+    md: 'text-sm md:text-md',
+    lg: 'text-md md:text-lg',
   };
 
   const varientClassNames: Record<
@@ -64,6 +68,10 @@ const Button = ({
       varient === 'outline'
         ? 'border-purple-400 text-purple-400 hover:text-black hover:bg-purple-400'
         : 'bg-purple-600 hover:bg-purple-500 text-white',
+    gray:
+      varient === 'outline'
+        ? 'border-gray-400 text-gray-400 hover:text-black hover:bg-gray-400'
+        : 'bg-gray-600 hover:bg-gray-500 text-white',
   };
 
   className = twMerge(

@@ -6,6 +6,7 @@ import DefaultLayout from './layouts/DefaultLayout';
 import SignIn from './pages/SignIn';
 import TermsOfService from './pages/TermsOfService';
 import PrivacyPolicy from './pages/PrivacyPolicy';
+import Code from './pages/Code';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="terms" element={<TermsOfService />} />
           <Route path="policy" element={<PrivacyPolicy />} />
           <Route path="signin" element={<SignIn />} />
+          <Route path="code/:id" element={<Code />} />
           <Route path="about" element={<About />} />
           <Route path="*" element={<NotFound />} />
         </Route>

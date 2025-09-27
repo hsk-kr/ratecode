@@ -19,6 +19,7 @@ import 'ace-builds/src-noconflict/theme-tomorrow_night';
 
 import Text from '../Text';
 import { useState, type ChangeEvent } from 'react';
+import { supportedLanguages, type SupportedLanguage } from '../../utils/code';
 
 const MAX_CODE_LENGTH = 1000;
 
@@ -26,26 +27,9 @@ type EditorProps = {
   onCodeChange: (code: string) => void;
 };
 
-export const supportedLanguages = [
-  'text',
-  'typescript',
-  'javascript',
-  'golang',
-  'rust',
-  'python',
-  'java',
-  'kotlin',
-  'csharp',
-  'html',
-  'c_cpp',
-  'ruby',
-  'php',
-  'lua',
-] as const;
-
 const Editor = ({ onCodeChange }: EditorProps) => {
   const [code, setCode] = useState('');
-  const [language, setLanguage] = useState<(typeof supportedLanguages)[number]>(
+  const [language, setLanguage] = useState<SupportedLanguage>(
     supportedLanguages[1]
   );
 
@@ -80,7 +64,9 @@ const Editor = ({ onCodeChange }: EditorProps) => {
             className="capitalize text-sm bg-gray-700 py-1 px-2 rounded text-gray-300"
           >
             {supportedLanguages.map((language) => (
-              <option value={language}>{language}</option>
+              <option key={language} value={language}>
+                {language}
+              </option>
             ))}
           </select>
         </div>

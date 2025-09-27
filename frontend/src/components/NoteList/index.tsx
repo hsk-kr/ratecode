@@ -37,8 +37,9 @@ const NoteList = ({ notes }: NoteListProps) => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-      {notes.map((note) => (
+      {notes.map((note, noteIdx) => (
         <div
+          key={noteIdx}
           className={twMerge(
             `flex flex-col pl-2 pr-4 gap-1 border-l min-h-12`,
             borderClassNames[note.color]

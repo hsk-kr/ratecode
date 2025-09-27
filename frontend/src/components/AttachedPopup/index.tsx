@@ -67,8 +67,8 @@ const AttachedPopup = ({ children, items }: AttachedPopupProps) => {
 
               return (
                 <button
-                  className="w-full px-4 py-2 hover:bg-gray-700 flex items-center gap-2 transition-colors cursor-pointer"
                   key={itemIdx}
+                  className="w-full px-4 py-2 hover:bg-gray-700 flex items-center gap-2 transition-colors cursor-pointer"
                   role="button"
                   onClick={onClick}
                 >

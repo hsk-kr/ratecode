@@ -63,6 +63,7 @@ const TermsOfService = () => {
         <main className="flex flex-col gap-6">
           {clauses.map((clause, clauseIdx) => (
             <Clause
+              key={clauseIdx}
               title={`${clauseIdx + 1}. ${clause.title}`}
               desc={clause.desc}
             />
