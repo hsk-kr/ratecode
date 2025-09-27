@@ -1,6 +1,6 @@
 import BackButton from '../components/BackButton';
 import Badge from '../components/Badge';
-import BookmarkButton from '../components/BookmarkButton';
+import SaveButton from '../components/SaveButton';
 import Box from '../components/Box';
 import Button from '../components/Button';
 import CodeViewer from '../components/CodeViewer';
@@ -58,7 +58,7 @@ const Buttons = () => {
       <Button color="purple" varient="fill" icon="copy">
         Copy Link
       </Button>
-      <BookmarkButton bookmarked={true} />
+      <SaveButton saved={true} />
     </div>
   );
 };

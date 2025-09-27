@@ -5,8 +5,8 @@ import { FaRegBookmark } from 'react-icons/fa';
 import Button from '../Button';
 import type { IconType } from 'react-icons';
 
-type BookmarkButtonProps = {
-  bookmarked: boolean;
+type SaveButtonProps = {
+  saved: boolean;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
 const icons = new Map<boolean, IconType>([
@@ -14,11 +14,11 @@ const icons = new Map<boolean, IconType>([
   [false, FaRegBookmark],
 ]);
 
-const BookmarkButton = ({ bookmarked, ...props }: BookmarkButtonProps) => {
-  const label = bookmarked ? 'Unbookmark' : 'Bookmark';
-  const Icon = icons.get(bookmarked);
+const SaveButton = ({ saved, ...props }: SaveButtonProps) => {
+  const label = saved ? 'Unsave' : 'Save';
+  const Icon = icons.get(saved);
 
-  if (Icon === undefined) throw new Error('Cannot find bookmark icon');
+  if (Icon === undefined) throw new Error('Cannot render icon');
 
   return (
     <Button {...props} color="gray" varient="fill">
@@ -28,4 +28,4 @@ const BookmarkButton = ({ bookmarked, ...props }: BookmarkButtonProps) => {
   );
 };
 
-export default BookmarkButton;
+export default SaveButton;
