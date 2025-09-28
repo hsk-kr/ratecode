@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import Text from '../Text';
 import type { IconType } from 'react-icons';
-import { twMerge } from 'tailwind-merge';
 
 type ItemColor = 'white' | 'red';
 

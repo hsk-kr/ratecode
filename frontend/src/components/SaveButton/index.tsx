@@ -21,8 +21,13 @@ const SaveButton = ({ saved, ...props }: SaveButtonProps) => {
   if (Icon === undefined) throw new Error('Cannot render icon');
 
   return (
-    <Button {...props} color="gray" varient="fill">
-      <Icon />
+    <Button
+      {...props}
+      color="gray"
+      varient="fill"
+      className="flex items-center"
+    >
+      <Icon className="text-xs" />
       {label}
     </Button>
   );

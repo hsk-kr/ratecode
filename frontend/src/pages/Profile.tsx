@@ -19,12 +19,12 @@ const Profile = () => {
     {
       color: 'cyan',
       label: 'My Code (10)',
-      icon: IoCodeOutline,
+      icon: <IoCodeOutline />,
     },
     {
       color: 'purple',
       label: 'Saved (5)',
-      icon: FaRegBookmark,
+      icon: <FaRegBookmark className="text-xs" />,
     },
   ];
   return (

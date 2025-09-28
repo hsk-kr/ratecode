@@ -1,9 +1,9 @@
-import type { IconType } from 'react-icons';
+import type { ReactNode } from 'react';
 import Text from '../Text';
 import { twMerge } from 'tailwind-merge';
 
 type Item = {
-  icon?: IconType;
+  icon?: ReactNode;
   label: string;
   color: 'cyan' | 'purple';
 };
@@ -25,8 +25,7 @@ const Tab = ({ onChange, selectedIndex, items }: TabProps) => {
       role="tab"
     >
       {items.map((item, itemIdx) => {
-        const Icon = item.icon;
-
+        const icon = item.icon;
         const selected = itemIdx === selectedIndex;
 
         const colorClassNames: Record<Item['color'], string> = {
@@ -39,11 +38,12 @@ const Tab = ({ onChange, selectedIndex, items }: TabProps) => {
             key={itemIdx}
             className={twMerge(
               'flex gap-3 rounded-xl px-5 py-3 items-center cursor-pointer',
-              selected ? colorClassNames[item.color] : ''
+              selected ? colorClassNames[item.color] : '',
+              selected ? 'white' : 'gray-400'
             )}
             onClick={handleChange(itemIdx)}
           >
-            {Icon ? <Icon className={selected ? 'white' : 'gray-400'} /> : null}
+            {icon ? <>{icon}</> : null}
             <Text color={selected ? 'white' : 'gray'} size="sm">
               {item.label}
             </Text>
