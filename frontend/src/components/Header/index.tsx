@@ -1,4 +1,4 @@
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import Button from '../Button';
 import BrandLabel from '../BrandLabel';
 import AttachedPopup from '../AttachedPopup';
@@ -8,11 +8,14 @@ import { IoPerson } from 'react-icons/io5';
 import { IoIosLogOut } from 'react-icons/io';
 
 const Header = () => {
+  const navigate = useNavigate();
+
   const popupItems: ComponentProps<typeof AttachedPopup>['items'] = [
     {
       label: 'Profile',
       color: 'white',
       icon: IoPerson,
+      onClick: () => navigate('/profile'),
     },
     {
       divider: true,

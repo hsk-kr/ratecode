@@ -6,6 +6,7 @@ import { IoCodeOutline } from 'react-icons/io5';
 import { FaCodeBranch } from 'react-icons/fa';
 import { FaCloudUploadAlt } from 'react-icons/fa';
 import { MdOutlineContentCopy } from 'react-icons/md';
+import { RiDeleteBin6Line } from 'react-icons/ri';
 
 type ButtonProps = {
   hoverAction?: 'scale';
@@ -13,7 +14,7 @@ type ButtonProps = {
   wide?: boolean;
   size?: 'sm' | 'md' | 'lg';
   varient?: 'outline' | 'fill';
-  color: 'cyan' | 'purple' | 'gray';
+  color: 'cyan' | 'purple' | 'gray' | 'red';
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
 const icons = {
@@ -22,6 +23,7 @@ const icons = {
   cloudUpload: FaCloudUploadAlt,
   code: IoCodeOutline,
   copy: MdOutlineContentCopy,
+  bin: RiDeleteBin6Line,
 };
 
 const Button = ({
@@ -72,6 +74,10 @@ const Button = ({
       varient === 'outline'
         ? 'border-gray-400 text-gray-400 hover:text-black hover:bg-gray-400'
         : 'bg-gray-600 hover:bg-gray-500 text-white',
+    red:
+      varient === 'outline'
+        ? 'border-red-400 text-red-400 hover:text-black hover:bg-red-400'
+        : 'bg-red-600 hover:bg-red-500 text-white',
   };
 
   className = twMerge(

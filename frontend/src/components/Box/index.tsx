@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 type BoxProps = {
-  color: 'gray' | 'darkGray';
+  color: 'gray' | 'darkGray' | 'red';
   className?: string;
   center?: boolean;
   children: ReactNode;
@@ -14,6 +14,7 @@ const Box = ({ children, center, color, className: _className }: BoxProps) => {
     center ? 'items-center' : '',
     color === 'gray' ? 'bg-gray-800/50' : '',
     color === 'darkGray' ? 'bg-gray-900' : '',
+    color === 'red' ? 'bg-red-900/20' : '',
     _className
   );
 

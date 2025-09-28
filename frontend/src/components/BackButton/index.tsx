@@ -10,7 +10,7 @@ const BackButton = () => {
 
   return (
     <button
-      className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] h-9 px-4 py-2 border border-gray-600 text-gray-400 hover:bg-gray-800 hover:text-cyan-400 transition-all duration-200 cursor-pointer"
+      className="inline-flex w-fit items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] h-9 px-4 py-2 border border-gray-600 text-gray-400 hover:bg-gray-800 hover:text-cyan-400 transition-all duration-200 cursor-pointer"
       onClick={back}
     >
       <FaArrowLeft />
