@@ -14,7 +14,7 @@ type ButtonProps = {
   wide?: boolean;
   size?: 'sm' | 'md' | 'lg';
   varient?: 'outline' | 'fill';
-  color: 'cyan' | 'purple' | 'gray' | 'red';
+  color: 'cyan' | 'purple' | 'gray' | 'red' | 'lightGray';
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
 const icons = {
@@ -74,6 +74,10 @@ const Button = ({
       varient === 'outline'
         ? 'border-gray-400 text-gray-400 hover:text-black hover:bg-gray-400'
         : 'bg-gray-600 hover:bg-gray-500 text-white',
+    lightGray:
+      varient === 'outline'
+        ? 'border-gray-500 text-gray-300 hover:text-black hover:bg-gray-400'
+        : 'bg-gray-500 hover:bg-gray-400 text-white',
     red:
       varient === 'outline'
         ? 'border-red-400 text-red-400 hover:text-black hover:bg-red-400'
