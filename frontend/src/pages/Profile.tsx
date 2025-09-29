@@ -1,13 +1,11 @@
 import { useState, type ComponentProps } from 'react';
 import BackButton from '../components/BackButton';
-import Box from '../components/Box';
 import Tab from '../components/Tab';
-import Text from '../components/Text';
-
 import { FaRegBookmark } from 'react-icons/fa';
 import { IoCodeOutline } from 'react-icons/io5';
 import AccountInformation from '../components/AccountInformation';
 import DeleteAccount from '../components/DeleteAccount';
+import CodeSnippets from '../components/CodeSnippets';
 
 const Profile = () => {
   const [selectedTabIndex, setSelectedTabIndex] = useState(0);
@@ -27,6 +25,11 @@ const Profile = () => {
       icon: <FaRegBookmark className="text-xs" />,
     },
   ];
+
+  const MY_INFO = 0;
+  const MY_CODE = 1;
+  const SAVED = 2;
+
   return (
     <div className="flex flex-col gap-6">
       <BackButton />
@@ -35,12 +38,13 @@ const Profile = () => {
         selectedIndex={selectedTabIndex}
         onChange={setSelectedTabIndex}
       />
-      {selectedTabIndex === 0 ? (
+      {selectedTabIndex === MY_INFO ? (
         <div className="flex flex-col gap-4">
           <AccountInformation />
           <DeleteAccount />
         </div>
       ) : null}
+      {selectedTabIndex === MY_CODE ? <CodeSnippets /> : null}
     </div>
   );
 };
