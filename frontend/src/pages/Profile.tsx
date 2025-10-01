@@ -1,4 +1,4 @@
-import { useState, type ComponentProps } from 'react';
+import { useMemo, type ComponentProps } from 'react';
 import BackButton from '../components/BackButton';
 import Tab from '../components/Tab';
 import { FaRegBookmark } from 'react-icons/fa';
@@ -6,10 +6,10 @@ import { IoCodeOutline } from 'react-icons/io5';
 import AccountInformation from '../components/AccountInformation';
 import DeleteAccount from '../components/DeleteAccount';
 import CodeSnippets from '../components/CodeSnippets';
-import CodeSaves from '../components/CodeSaves';
+import useQueryState from '../hooks/useQueryState';
 
 const Profile = () => {
-  const [selectedTabIndex, setSelectedTabIndex] = useState(0);
+  const [tab, setTab] = useQueryState('tab', String, 'mycode');
   const tabItems: ComponentProps<typeof Tab>['items'] = [
     {
       color: 'cyan',
@@ -27,9 +27,34 @@ const Profile = () => {
     },
   ];
 
-  const MY_INFO = 0;
-  const MY_CODE = 1;
-  const SAVED = 2;
+  const handleTabChange = (index: number) => {
+    switch (index) {
+      case 0:
+        setTab('myinfo');
+        break;
+      case 1:
+        setTab('mycode');
+        break;
+      case 2:
+        setTab('saved');
+        break;
+      default:
+        break;
+    }
+  };
+
+  const selectedTabIndex = useMemo(() => {
+    switch (tab) {
+      case 'myinfo':
+        return 0;
+      case 'mycode':
+        return 1;
+      case 'saved':
+        return 2;
+      default:
+        return -1;
+    }
+  }, [tab]);
 
   return (
     <div className="flex flex-col gap-6">
@@ -37,16 +62,16 @@ const Profile = () => {
       <Tab
         items={tabItems}
         selectedIndex={selectedTabIndex}
-        onChange={setSelectedTabIndex}
+        onChange={handleTabChange}
       />
-      {selectedTabIndex === MY_INFO ? (
+      {tab === 'myinfo' ? (
         <div className="flex flex-col gap-4">
           <AccountInformation />
           <DeleteAccount />
         </div>
       ) : null}
-      {selectedTabIndex === MY_CODE ? <CodeSnippets type="mycode" /> : null}
-      {selectedTabIndex === SAVED ? <CodeSnippets type="save" /> : null}
+      {tab === 'mycode' ? <CodeSnippets type="mycode" /> : null}
+      {tab === 'saved' ? <CodeSnippets type="save" /> : null}
     </div>
   );
 };

@@ -36,7 +36,7 @@ const ConfirmModal = ({
     confirmationPhrase !== undefined && input !== confirmationPhrase;
 
   return (
-    <div className="absolute z-50 inset-0 bg-black/50">
+    <div className="fixed z-50 inset-0 bg-black/50">
       <div className="fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] rounded-lg p-6 shadow-lg w-full max-w-[calc(100%-2rem)] sm:max-w-lg bg-gray-900 border border-gray-700 flex flex-col gap-2">
         <Text size="lg" color={titleColor} className="font-bold">
           {title}
