@@ -7,6 +7,8 @@ import { FaCodeBranch } from 'react-icons/fa';
 import { FaCloudUploadAlt } from 'react-icons/fa';
 import { MdOutlineContentCopy } from 'react-icons/md';
 import { RiDeleteBin6Line } from 'react-icons/ri';
+import { FaBookmark } from 'react-icons/fa';
+import { FaRegBookmark } from 'react-icons/fa';
 
 type ButtonProps = {
   hoverAction?: 'scale';
@@ -24,6 +26,8 @@ const icons = {
   code: IoCodeOutline,
   copy: MdOutlineContentCopy,
   bin: RiDeleteBin6Line,
+  bookmark: FaBookmark,
+  regBookmark: FaRegBookmark,
 };
 
 const Button = ({

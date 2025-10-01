@@ -6,6 +6,7 @@ import { IoCodeOutline } from 'react-icons/io5';
 import AccountInformation from '../components/AccountInformation';
 import DeleteAccount from '../components/DeleteAccount';
 import CodeSnippets from '../components/CodeSnippets';
+import CodeSaves from '../components/CodeSaves';
 
 const Profile = () => {
   const [selectedTabIndex, setSelectedTabIndex] = useState(0);
@@ -44,7 +45,8 @@ const Profile = () => {
           <DeleteAccount />
         </div>
       ) : null}
-      {selectedTabIndex === MY_CODE ? <CodeSnippets /> : null}
+      {selectedTabIndex === MY_CODE ? <CodeSnippets type="mycode" /> : null}
+      {selectedTabIndex === SAVED ? <CodeSnippets type="save" /> : null}
     </div>
   );
 };
