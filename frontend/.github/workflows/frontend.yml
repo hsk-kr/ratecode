@@ -1,6 +1,10 @@
 on:
-  - push
-  - pull_request
+  push:
+    paths:
+      - 'frontend/**'
+  pull_request:
+    paths:
+      - 'frontend/**'
 
 jobs:
   build:
