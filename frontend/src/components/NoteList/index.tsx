@@ -23,6 +23,7 @@ type NoteListProps = {
 };
 
 const NoteList = ({ notes }: NoteListProps) => {
+  console.log('test');
   const borderClassNames: Record<Note['color'], string> = {
     red: 'border-red-400',
     cyan: 'border-cyan-400',
