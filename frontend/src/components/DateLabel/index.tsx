@@ -7,7 +7,6 @@ type DateLabelProps = {
 };
 
 const DateLabel = ({ date }: DateLabelProps) => {
-  console.log('test');
   const dateString = dayjs(date).format('llll');
   return (
     <div className="flex items-center gap-1">

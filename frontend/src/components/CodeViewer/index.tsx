@@ -40,7 +40,7 @@ const CodeViewer = ({
     <title>test</title>
   </head>
   <script>
-    console.log('what the fuck');
+    console.log('test');
   </script>
 </html>
 `}
