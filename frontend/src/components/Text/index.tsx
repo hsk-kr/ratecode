@@ -1,5 +1,6 @@
 import type { HTMLAttributes } from 'react';
 import { twMerge } from 'tailwind-merge';
+import { getTextColorClassName, type TextColor } from '../../utils/color';
 
 type TextProps = {
   size?:
@@ -13,37 +14,9 @@ type TextProps = {
     | '4xl'
     | '5xl'
     | '6xl';
-  color?:
-    | 'cyan'
-    | 'gray'
-    | 'blue'
-    | 'red'
-    | 'purple'
-    | 'green'
-    | 'orange'
-    | 'white'
-    | 'yellow'
-    | 'teal'
-    | 'textDefault';
+  color?: TextColor;
   bold?: boolean;
 } & HTMLAttributes<HTMLSpanElement>;
-
-export const colorClassNames: Record<
-  NonNullable<TextProps['color']>,
-  string
-> = {
-  textDefault: 'text-gray-300',
-  red: 'text-red-400',
-  cyan: 'text-cyan-400',
-  gray: 'text-gray-400',
-  blue: 'text-blue-400',
-  green: 'text-green-400',
-  white: 'text-white',
-  teal: 'text-teal-400',
-  purple: 'text-purple-400',
-  yellow: 'text-yellow-400',
-  orange: 'text-orange-400',
-};
 
 const Text = ({
   size = 'sm',
@@ -69,7 +42,7 @@ const Text = ({
   const className = twMerge(
     'font-sans',
     sizeClassNames[size],
-    colorClassNames[color],
+    getTextColorClassName(color),
     boldClassName,
     props.className
   );

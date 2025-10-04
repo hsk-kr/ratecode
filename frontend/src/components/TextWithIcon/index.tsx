@@ -1,7 +1,8 @@
 import type { ComponentProps } from 'react';
-import Text, { colorClassNames } from '../Text';
+import Text from '../Text';
 import type { IconType } from 'react-icons';
 import { twMerge } from 'tailwind-merge';
+import { getTextColorClassName } from '../../utils/color';
 
 type TextWithIconProps = ComponentProps<typeof Text> & {
   icon: IconType;
@@ -17,7 +18,7 @@ const TextWithIcon = ({
     <div className="flex gap-2 items-center">
       <Icon
         className={twMerge(
-          colorClassNames[props.color ?? 'textDefault'],
+          getTextColorClassName(props.color ?? 'textDefault'),
           iconClassName
         )}
       />
