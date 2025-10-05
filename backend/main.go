@@ -18,6 +18,7 @@ func NewServer() http.Handler {
 
 func main() {
 	mux := web.CreateServer()
-	routes.LoadRoutes(mux)
+	router := routes.GetRouter()
+	router.Register(mux)
 	http.ListenAndServe(":8080", mux)
 }

@@ -16,7 +16,8 @@ type TestContext struct {
 
 func (tc *TestContext) setup(t *testing.T) {
 	mux := web.CreateServer()
-	LoadRoutes(mux)
+	router := GetRouter()
+	router.Register(mux)
 
 	server := httptest.NewServer(mux)
 
