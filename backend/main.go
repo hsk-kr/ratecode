@@ -8,7 +8,6 @@ import (
 )
 
 func NewServer() http.Handler {
-	//test
 	mux := http.NewServeMux()
 	mux.HandleFunc("GET /ping", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("pong"))
