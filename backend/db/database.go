@@ -15,7 +15,6 @@ func CreateDatabase() {
 
 	databaseUrl := os.Getenv("DATABASE_URL")
 	databaseUrlWithoutDb := databaseUrl[:strings.LastIndex(databaseUrl, "/")]
-	fmt.Println(databaseUrlWithoutDb)
 
 	conn, err := pgx.Connect(ctx, databaseUrlWithoutDb)
 	if err != nil {

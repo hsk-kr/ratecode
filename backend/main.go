@@ -22,6 +22,7 @@ func loadEnv() {
 
 func main() {
 	loadEnv()
+	db.Setup()
 
 	mux := web.CreateServer()
 	router := routes.GetRouter()
@@ -31,9 +32,7 @@ func main() {
 
 	port := os.Getenv("PORT")
 
-	fmt.Printf("Listening :%s\n", port)
-	db.Setup()
-	db.Open()
+	log.Printf("Listening :%s\n", port)
 	http.ListenAndServe(fmt.Sprintf(":%s", port), handler)
 
 }
