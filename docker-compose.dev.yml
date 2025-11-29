@@ -1,0 +1,30 @@
+services:
+  frontend:
+    build:
+      context: .
+      target: frontend
+    working_dir: /app
+    ports:
+      - 5173:5173
+    volumes:
+      - .:/app
+      - /app/frontend/node_modules
+    command: sh -lc "corepack enable && pnpm --prefix ./frontend install && make frontend_dev"
+
+  backend:
+    build:
+      context: .
+      target: backend
+    working_dir: /app
+    ports:
+      - 8080:8080
+    volumes:
+      - .:/app
+    command: make backend_dev
+
+  postgres:
+    image: postgres:18.1-bookworm
+    restart: always
+    shm_size: 128mb
+    environment:
+      - POSTGRES_PASSWORD=password
