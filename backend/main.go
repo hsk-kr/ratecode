@@ -25,10 +25,20 @@ func main() {
 	db.Setup()
 
 	mux := web.CreateServer()
-	router := routes.GetRouter()
-	router.Register(mux)
 
-	handler := cors.Default().Handler(mux)
+	origin := os.Getenv("CORS_ORIGIN")
+	c := cors.New(cors.Options{
+		AllowedOrigins:   []string{origin},
+		AllowedMethods:   []string{"GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS"},
+		AllowedHeaders:   []string{"*"},
+		AllowCredentials: true,
+	})
+	handler := c.Handler(mux)
+
+	routers := routes.GetRouters()
+	for _, router := range routers {
+		router.Register(mux)
+	}
 
 	port := os.Getenv("PORT")
 

@@ -1,5 +1,15 @@
-CREATE TABLE IF NOT EXISTS users (
-    id INTEGER PRIMARY KEY,
+CREATE TABLE migrations (
+  id SERIAL PRIMARY KEY,
+  name TEXT NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+
+  UNIQUE(name)
+);
+
+CREATE INDEX idx_migrations_name ON migrations (name);
+
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
     email TEXT NOT NULL,
     auth_provider TEXT NOT NULL,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
@@ -8,5 +18,5 @@ CREATE TABLE IF NOT EXISTS users (
     UNIQUE (email, auth_provider)
 );
 
-CREATE INDEX IF NOT EXISTS idx_users_email ON users (email);
-CREATE INDEX IF NOT EXISTS idx_users_auth_provider ON users (auth_provider);
+CREATE INDEX idx_users_email ON users (email);
+CREATE INDEX idx_users_auth_provider ON users (auth_provider);

@@ -1,12 +1,17 @@
 package routes
 
-func GetRouter() *Router {
-	router := &Router{}
+func GetRouters() []*Router {
+	codeRouter := &Router{}
 
-	router.Create("/codes")
-	router.Handle("GET", "/", GetCodes)
-	router.Handle("GET", "/{code}", GetCode)
-	router.Handle("POST", "/", CreateCode)
+	codeRouter.Create("/codes")
+	codeRouter.Handle("GET", "/", GetCodes)
+	codeRouter.Handle("GET", "/{code}", GetCode)
+	codeRouter.Handle("POST", "/", CreateCode)
 
-	return router
+	authRouter := &Router{}
+	authRouter.Create("/auth")
+	authRouter.Handle("GET", "/google/callback", HandleOAuthCallback)
+	authRouter.Handle("GET", "/url", HandleOAuthUrl)
+
+	return []*Router{codeRouter, authRouter}
 }

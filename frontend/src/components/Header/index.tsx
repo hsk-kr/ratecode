@@ -6,9 +6,11 @@ import type { ComponentProps } from 'react';
 
 import { IoPerson } from 'react-icons/io5';
 import { IoIosLogOut } from 'react-icons/io';
+import useAuth from '../../hooks/useAuth';
 
 const Header = () => {
   const navigate = useNavigate();
+  const { isSignedIn } = useAuth();
 
   const popupItems: ComponentProps<typeof AttachedPopup>['items'] = [
     {
@@ -24,6 +26,7 @@ const Header = () => {
       label: 'Logout',
       color: 'red',
       icon: IoIosLogOut,
+      onClick: () => navigate('/logout'),
     },
   ];
 
@@ -34,14 +37,17 @@ const Header = () => {
           <BrandLabel size="md" />
         </Link>
         <div className="flex gap-1">
-          <AttachedPopup items={popupItems}>
-            <Button color="cyan" icon="profile" varient="outline" />
-          </AttachedPopup>
-          <Link to="/signin">
-            <Button color="cyan" icon="profile" varient="outline">
-              Sign In
-            </Button>
-          </Link>
+          {isSignedIn ? (
+            <AttachedPopup items={popupItems}>
+              <Button color="cyan" icon="profile" varient="outline" />
+            </AttachedPopup>
+          ) : (
+            <Link to="/signin">
+              <Button color="cyan" icon="profile" varient="outline">
+                Sign In
+              </Button>
+            </Link>
+          )}
         </div>
       </div>
     </nav>

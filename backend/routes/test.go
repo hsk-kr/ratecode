@@ -16,8 +16,11 @@ type TestContext struct {
 
 func (tc *TestContext) setup(t *testing.T) {
 	mux := web.CreateServer()
-	router := GetRouter()
-	router.Register(mux)
+	routers := GetRouters()
+
+	for _, router := range routers {
+		router.Register(mux)
+	}
 
 	server := httptest.NewServer(mux)
 
