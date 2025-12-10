@@ -8,6 +8,7 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
@@ -33,4 +34,29 @@ func Open() (*pgxpool.Pool, error) {
 	}
 
 	return dbpool, nil
+}
+
+func WithTransaction[V any](cb func(tx pgx.Tx, ctx context.Context) (V, error)) (V, error) {
+	zero := *new(V)
+	ctx, cancel := GetDBContext()
+	defer cancel()
+
+	conn, err := Open()
+	if err != nil {
+		return zero, err
+	}
+
+	tx, err := conn.Begin(ctx)
+	if err != nil {
+		return zero, err
+	}
+	defer tx.Rollback(ctx)
+
+	v, err := cb(tx, ctx)
+	if err != nil {
+		return v, err
+	}
+
+	err = tx.Commit(ctx)
+	return v, err
 }
