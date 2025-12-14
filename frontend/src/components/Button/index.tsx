@@ -40,7 +40,7 @@ const Button = ({
   ...props
 }: ButtonProps) => {
   let className =
-    'rounded-lg cursor-pointer transition-all flex items-center gap-2 disabled:cursor-not-allowed disabled:bg-gray-600 disabled:text-gray-400';
+    'rounded-lg cursor-pointer transition-all duration-500 flex items-center gap-2 disabled:cursor-not-allowed disabled:bg-gray-600 disabled:text-gray-400';
 
   const wideClassName = wide ? 'px-8 py-2' : 'px-4 py-2';
 
@@ -103,7 +103,7 @@ const Button = ({
   const Icon = icon ? icons[icon] : null;
 
   return (
-    <button {...props} className={className}>
+    <button type="button" {...props} className={className}>
       {Icon && <Icon />}
       {props.children}
     </button>

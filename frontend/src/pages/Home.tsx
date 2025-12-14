@@ -7,16 +7,24 @@ import Box from '../components/Box';
 import NoteList from '../components/NoteList';
 import Divider from '../components/Divider';
 import { useNavigate } from 'react-router';
+import useCodeApis from '../hooks/apis/useCodeApis';
+import type { SupportedLanguage } from '../utils/code';
 
 const Home = () => {
   // TODO: use hook
   const [code, setCode] = useState('');
+  const [language, setLanguage] = useState<SupportedLanguage>('text');
   const navigate = useNavigate();
+  const { createCode, isCreateCodePending } = useCodeApis();
 
   const shareDisabled = code.length === 0;
 
   const navigateRandomCode = () => {
     navigate('code/1');
+  };
+
+  const handleCodeCreate = () => {
+    createCode({ code, language });
   };
 
   return (
@@ -33,18 +41,19 @@ const Home = () => {
         </div>
       </div>
       <div className="w-full max-w-3xl mx-auto">
-        <Editor onCodeChange={setCode} />
+        <Editor onCodeChange={setCode} onLanguageChange={setLanguage} />
       </div>
       <div className="flex justify-center gap-2 mb-8">
         <Button
-          disabled={shareDisabled}
+          disabled={shareDisabled || isCreateCodePending}
           color="cyan"
           icon="cloudUpload"
           varient="fill"
           hoverAction="scale"
           wide
+          onClick={handleCodeCreate}
         >
-          Share
+          {isCreateCodePending ? 'Creating...' : 'Share'}
         </Button>
         <Button color="purple" icon="branch" wide onClick={navigateRandomCode}>
           Rate Others

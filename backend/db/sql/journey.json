@@ -1,5 +1,8 @@
 [
   {
     "name": "migrate_01.sql"
+  },
+  {
+    "name": "migrate_02.sql"
   }
 ]

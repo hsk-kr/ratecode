@@ -12,3 +12,11 @@ func JsonResponse[T any](w http.ResponseWriter, respData T) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
+
+func BadRequest(w http.ResponseWriter) {
+	http.Error(w, "Bad request", http.StatusBadRequest)
+}
+
+func Unauthorized(w http.ResponseWriter) {
+	http.Error(w, "Unauthorized", http.StatusUnauthorized)
+}

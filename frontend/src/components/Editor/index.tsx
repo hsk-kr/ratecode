@@ -18,16 +18,17 @@ import 'ace-builds/src-noconflict/mode-text';
 import 'ace-builds/src-noconflict/theme-tomorrow_night';
 
 import Text from '../Text';
-import { useState, type ChangeEvent } from 'react';
+import { useEffect, useState, type ChangeEvent } from 'react';
 import { supportedLanguages, type SupportedLanguage } from '../../utils/code';
 
-const MAX_CODE_LENGTH = 1000;
+const MAX_CODE_LENGTH = 10000;
 
 type EditorProps = {
   onCodeChange: (code: string) => void;
+  onLanguageChange: (language: SupportedLanguage) => void;
 };
 
-const Editor = ({ onCodeChange }: EditorProps) => {
+const Editor = ({ onCodeChange, onLanguageChange }: EditorProps) => {
   const [code, setCode] = useState('');
   const [language, setLanguage] = useState<SupportedLanguage>(
     supportedLanguages[1]
@@ -43,6 +44,10 @@ const Editor = ({ onCodeChange }: EditorProps) => {
   };
 
   const exceedCharacterLength = code.length > MAX_CODE_LENGTH;
+
+  useEffect(() => {
+    onLanguageChange(language);
+  }, [language]);
 
   return (
     <div className="flex flex-col gap-y-1">
@@ -83,7 +88,7 @@ const Editor = ({ onCodeChange }: EditorProps) => {
       </div>
       <div className="flex justify-end">
         <Text color={exceedCharacterLength ? 'red' : 'gray'} size="xs">
-          {code.length}/1000
+          {code.length}/{MAX_CODE_LENGTH}
         </Text>
       </div>
     </div>
