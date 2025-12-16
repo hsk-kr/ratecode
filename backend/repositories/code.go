@@ -11,12 +11,10 @@ import (
 )
 
 type Code struct {
-	Id         int
-	Uuid       string
-	userId     int
-	code       string
-	language   string
-	created_at time.Time
+	Uuid      string    `json:"uuid"`
+	Code      string    `json:"code"`
+	Language  string    `json:"language"`
+	CreatedAt time.Time `json:"createdAt"`
 }
 
 // returns created code's uuid
@@ -72,5 +70,30 @@ func DeleteCode(uuid string) (bool, error) {
 		}
 
 		return true, nil
+	})
+}
+
+func GetRandomCodeUuid() (string, error) {
+	return db.WithTransaction(func(tx pgx.Tx, ctx context.Context) (string, error) {
+		var uuid string
+
+		err := tx.QueryRow(ctx,
+			"SELECT uuid FROM codes ORDER BY random() LIMIT 1",
+		).Scan(&uuid)
+
+		return uuid, err
+	})
+}
+
+func GetCode(uuid string) (*Code, error) {
+	return db.WithTransaction(func(tx pgx.Tx, ctx context.Context) (*Code, error) {
+		var code Code
+
+		err := tx.QueryRow(ctx,
+			"SELECT uuid, code, language, created_at FROM codes where uuid = $1",
+			uuid,
+		).Scan(&code.Uuid, &code.Code, &code.Language, &code.CreatedAt)
+
+		return &code, err
 	})
 }
