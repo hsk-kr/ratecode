@@ -28,7 +28,7 @@ function App() {
               <Route path="policy" element={<PrivacyPolicy />} />
               <Route path="signin" element={<SignIn />} />
               <Route path="logout" element={<Logout />} />
-              <Route path="code/:id" element={<Code />} />
+              <Route path="code/:uuid" element={<Code />} />
               <Route path="profile" element={<Profile />} />
               <Route path="about" element={<About />} />
               <Route path="*" element={<NotFound />} />

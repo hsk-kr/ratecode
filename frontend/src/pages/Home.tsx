@@ -15,17 +15,28 @@ const Home = () => {
   const [code, setCode] = useState('');
   const [language, setLanguage] = useState<SupportedLanguage>('text');
   const navigate = useNavigate();
-  const { createCode, isCreateCodePending } = useCodeApis();
+  const {
+    createCode,
+    isCreateCodePending,
+    getRandomCode,
+    isGetRandomCodePending,
+  } = useCodeApis({});
 
   const shareDisabled = code.length === 0;
 
   const navigateRandomCode = () => {
-    navigate('code/1');
+    getRandomCode(undefined, {
+      onSuccess: (res) => {
+        navigate(`code/${res.uuid}`);
+      },
+    });
   };
 
   const handleCodeCreate = () => {
     createCode({ code, language });
   };
+
+  const loading = isCreateCodePending || isGetRandomCodePending;
 
   return (
     <>
@@ -45,7 +56,7 @@ const Home = () => {
       </div>
       <div className="flex justify-center gap-2 mb-8">
         <Button
-          disabled={shareDisabled || isCreateCodePending}
+          disabled={shareDisabled || loading}
           color="cyan"
           icon="cloudUpload"
           varient="fill"
@@ -55,7 +66,13 @@ const Home = () => {
         >
           {isCreateCodePending ? 'Creating...' : 'Share'}
         </Button>
-        <Button color="purple" icon="branch" wide onClick={navigateRandomCode}>
+        <Button
+          color="purple"
+          icon="branch"
+          wide
+          onClick={navigateRandomCode}
+          disabled={loading}
+        >
           Rate Others
         </Button>
       </div>

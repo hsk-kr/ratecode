@@ -17,7 +17,7 @@ type ButtonProps = {
   size?: 'sm' | 'md' | 'lg';
   varient?: 'outline' | 'fill';
   color: 'cyan' | 'purple' | 'gray' | 'red' | 'lightGray';
-} & ButtonHTMLAttributes<HTMLButtonElement>;
+} & Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'style'>;
 
 const icons = {
   profile: IoPerson,

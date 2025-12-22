@@ -17,6 +17,10 @@ func BadRequest(w http.ResponseWriter) {
 	http.Error(w, "Bad request", http.StatusBadRequest)
 }
 
+func NotFound(w http.ResponseWriter) {
+	http.Error(w, "Not Found", http.StatusNotFound)
+}
+
 func Unauthorized(w http.ResponseWriter) {
 	http.Error(w, "Unauthorized", http.StatusUnauthorized)
 }

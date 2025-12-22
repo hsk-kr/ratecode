@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strings"
 
 	"github.com/hsk-kr/ratecode/backend/repositories"
 	"github.com/hsk-kr/ratecode/backend/utils"
@@ -18,12 +19,42 @@ type CreateCodeResponse struct {
 	Uuid string `json:"uuid"`
 }
 
-func GetCodes(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(w, "Get Codes")
+type RandomCodeResponse = CreateCodeResponse
+
+func HandleGetCode(w http.ResponseWriter, r *http.Request) {
+	path := strings.Trim(r.URL.Path, "/codes")
+	parts := strings.Split(path, "/")
+
+	if len(parts) != 1 {
+		NotFound(w)
+		return
+	}
+
+	uuid := parts[0]
+
+	code, err := repositories.GetCode(uuid)
+
+	if err != nil {
+		NotFound(w)
+		return
+	}
+
+	JsonResponse(w, code)
 }
 
-func GetCode(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(w, "Get Code")
+func HandleGetRandomCode(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
+
+	uuid, err := repositories.GetRandomCodeUuid()
+
+	if err != nil {
+		BadRequest(w)
+		return
+	}
+
+	JsonResponse(w, RandomCodeResponse{
+		Uuid: uuid,
+	})
 }
 
 func HandleCreateCode(w http.ResponseWriter, r *http.Request) {

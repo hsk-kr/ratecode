@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"net/http"
-	"path"
 	"strings"
 
 	"github.com/hsk-kr/ratecode/backend/utils"
@@ -15,18 +14,20 @@ type endpoint struct {
 	method  string
 }
 
+type EndpointOptions struct {
+	AuthNeed bool
+}
+
 type Router struct {
 	endpoints  map[string][]endpoint
 	pathPrefix string
-	authNeed   bool
 }
 
-func (r *Router) Create(prefix string, authNeed bool) {
+func (r *Router) Create(prefix string) {
 	r.pathPrefix = prefix
-	r.authNeed = authNeed
 }
 
-func (r *Router) Handle(method, path string, handler func(w http.ResponseWriter, r *http.Request)) {
+func (r *Router) Handle(method, path string, handler func(w http.ResponseWriter, r *http.Request), options EndpointOptions) {
 	if r.endpoints == nil {
 		r.endpoints = make(map[string][]endpoint)
 	}
@@ -37,7 +38,7 @@ func (r *Router) Handle(method, path string, handler func(w http.ResponseWriter,
 	}
 
 	newHandler := func(w http.ResponseWriter, req *http.Request) {
-		if !r.authNeed {
+		if !options.AuthNeed {
 			handler(w, req)
 			return
 		}
@@ -70,10 +71,12 @@ func (r *Router) Register(mux *http.ServeMux) {
 	}
 
 	for subendpointPath, subendpoints := range r.endpoints {
-		apiPath := path.Join(r.pathPrefix, subendpointPath)
+		apiPath := r.pathPrefix + subendpointPath
+		fmt.Println(apiPath)
 
 		mux.HandleFunc(apiPath, func(w http.ResponseWriter, r *http.Request) {
 			for _, subendpoint := range subendpoints {
+				fmt.Println(subendpoint)
 				if strings.EqualFold(subendpoint.method, r.Method) {
 
 					subendpoint.handler(w, r)

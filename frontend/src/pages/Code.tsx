@@ -8,8 +8,16 @@ import DateLabel from '../components/DateLabel';
 import Text from '../components/Text';
 import Views from '../components/Views';
 import Rate from '../components/Rate';
+import useCodeApis from '../hooks/apis/useCodeApis';
+import { useParams } from 'react-router';
 
 const Code = () => {
+  const params = useParams();
+  const { code, isGetCodeLoading } = useCodeApis({
+    uuid: params.uuid!,
+  });
+  console.log(code, isGetCodeLoading);
+
   return (
     <div className="max-w-3xl w-full mx-auto flex flex-col gap-6">
       <Header />
