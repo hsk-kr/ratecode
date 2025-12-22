@@ -10,9 +10,11 @@ import {
 const CodeViewer = ({
   title,
   language: _language,
+  code,
 }: {
   title: string;
   language: SupportedLanguage;
+  code: string;
 }) => {
   const language = convertLanguageToCodeViewerLanguage(_language);
 
@@ -33,17 +35,7 @@ const CodeViewer = ({
         style={hybrid}
         customStyle={{ height: 400, fontSize: 13 }}
       >
-        {`
-
-<html>
-  <head>
-    <title>test</title>
-  </head>
-  <script>
-    console.log('test');
-  </script>
-</html>
-`}
+        {code}
       </SyntaxHighlighter>
     </div>
   );

@@ -1,6 +1,7 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { network } from '../../utils/network';
 import type { SupportedLanguage } from '../../utils/code';
+import type { AxiosError } from 'axios';
 
 export type CreateCodeResponse = {
   uuid: string;
@@ -13,8 +14,9 @@ export type GetRandomCodeResponse = {
 export type GetCodeResponse = {
   uuid: string;
   code: string;
-  language: string;
+  language: SupportedLanguage;
   createdAt: string;
+  views: number;
 };
 
 export default function useCodeApis({ uuid }: { uuid?: string }) {
@@ -34,13 +36,18 @@ export default function useCodeApis({ uuid }: { uuid?: string }) {
         return res.data;
       },
     });
-  const { data: code, isLoading: isGetCodeLoading } = useQuery({
+  const {
+    data: code,
+    isLoading: isGetCodeLoading,
+    error: getCodeError,
+  } = useQuery<GetCodeResponse, AxiosError>({
     queryKey: ['codes'],
     queryFn: async () => {
-      const res = await network.get<GetCodeResponse>(`/codes/${uuid}`);
+      const res = await network.get(`/codes/${uuid}`);
       return res.data;
     },
     enabled: uuid !== undefined,
+    retry: false,
   });
 
   return {
@@ -50,5 +57,6 @@ export default function useCodeApis({ uuid }: { uuid?: string }) {
     isGetRandomCodePending,
     code,
     isGetCodeLoading,
+    getCodeError,
   };
 }

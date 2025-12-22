@@ -21,7 +21,7 @@ type CreateCodeResponse struct {
 type RandomCodeResponse = CreateCodeResponse
 
 func HandleGetCode(w http.ResponseWriter, r *http.Request) {
-	path := strings.Trim(r.URL.Path, "/codes")
+	path := r.URL.Path[len("/codes/"):]
 	parts := strings.Split(path, "/")
 
 	if len(parts) != 1 {

@@ -13,6 +13,7 @@ import (
 type Code struct {
 	Uuid      string    `json:"uuid"`
 	Code      string    `json:"code"`
+	Views     int       `json:"views"`
 	Language  string    `json:"language"`
 	CreatedAt time.Time `json:"createdAt"`
 }
@@ -89,10 +90,20 @@ func GetCode(uuid string) (*Code, error) {
 	return db.WithTransaction(func(tx pgx.Tx, ctx context.Context) (*Code, error) {
 		var code Code
 
-		err := tx.QueryRow(ctx,
-			"SELECT uuid, code, language, created_at FROM codes where uuid = $1",
+		cmd, err := tx.Exec(ctx, "UPDATE codes SET views = views + 1 WHERE uuid = $1", uuid)
+
+		if cmd.RowsAffected() != 1 {
+			return nil, fmt.Errorf("Affected %d rows", cmd.RowsAffected())
+		}
+
+		if err != nil {
+			return nil, err
+		}
+
+		err = tx.QueryRow(ctx,
+			"SELECT uuid, code, language, created_at, views FROM codes where uuid = $1",
 			uuid,
-		).Scan(&code.Uuid, &code.Code, &code.Language, &code.CreatedAt)
+		).Scan(&code.Uuid, &code.Code, &code.Language, &code.CreatedAt, &code.Views)
 
 		return &code, err
 	})

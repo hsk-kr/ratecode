@@ -10,20 +10,40 @@ import Views from '../components/Views';
 import Rate from '../components/Rate';
 import useCodeApis from '../hooks/apis/useCodeApis';
 import { useParams } from 'react-router';
+import CodeError from './CodeError';
 
 const Code = () => {
   const params = useParams();
-  const { code, isGetCodeLoading } = useCodeApis({
+  const { code, isGetCodeLoading, getCodeError } = useCodeApis({
     uuid: params.uuid!,
   });
-  console.log(code, isGetCodeLoading);
+
+  const handleLinkCopy = () => {
+    navigator.clipboard.writeText(window.location.href);
+  };
+
+  const handleCodeCopy = () => {
+    navigator.clipboard.writeText(code?.code || '');
+  };
+
+  if (isGetCodeLoading || !code) return null;
+
+  if (getCodeError !== null) {
+    return (
+      <CodeError error={getCodeError.status === 404 ? 'notfound' : 'unknown'} />
+    );
+  }
 
   return (
     <div className="max-w-3xl w-full mx-auto flex flex-col gap-6">
-      <Header />
+      <Header
+        language={code.language}
+        createdAt={new Date(code.createdAt)}
+        views={code.views}
+      />
       <Guide />
-      <Buttons />
-      <CodeViewer title="fabcdd" language="javascript" />
+      <Buttons onCodeCopy={handleCodeCopy} onLinkCopy={handleLinkCopy} />
+      <CodeViewer title={code.uuid} language={code.language} code={code.code} />
       <Rate />
     </div>
   );
@@ -58,13 +78,19 @@ const Guide = () => {
   );
 };
 
-const Buttons = () => {
+const Buttons = ({
+  onCodeCopy,
+  onLinkCopy,
+}: {
+  onCodeCopy: VoidFunction;
+  onLinkCopy: VoidFunction;
+}) => {
   return (
     <div className="flex gap-3">
-      <Button color="cyan" varient="fill" icon="code">
+      <Button color="cyan" varient="fill" icon="code" onClick={onCodeCopy}>
         Copy Code
       </Button>
-      <Button color="purple" varient="fill" icon="copy">
+      <Button color="purple" varient="fill" icon="copy" onClick={onLinkCopy}>
         Copy Link
       </Button>
       <SaveButton saved={true} />
@@ -72,21 +98,29 @@ const Buttons = () => {
   );
 };
 
-const Header = () => {
+const Header = ({
+  language,
+  views,
+  createdAt,
+}: {
+  language: string;
+  views: number;
+  createdAt: Date;
+}) => {
   return (
     <div className="flex justify-between md:items-center flex-col md:flex-row gap-4">
       <div className="flex justify-between">
         <BackButton />
         <Badge color="cyan" className="md:hidden">
-          javascript
+          {language}
         </Badge>
       </div>
       <div className="flex items-center gap-4 justify-between">
         <Badge color="cyan" className="hidden md:block">
-          javascript
+          {language}
         </Badge>
-        <Views views={52} />
-        <DateLabel date={new Date()} />
+        <Views views={views} />
+        <DateLabel date={createdAt} />
       </div>
     </div>
   );

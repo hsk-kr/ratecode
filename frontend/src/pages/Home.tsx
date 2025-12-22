@@ -11,7 +11,6 @@ import useCodeApis from '../hooks/apis/useCodeApis';
 import type { SupportedLanguage } from '../utils/code';
 
 const Home = () => {
-  // TODO: use hook
   const [code, setCode] = useState('');
   const [language, setLanguage] = useState<SupportedLanguage>('text');
   const navigate = useNavigate();

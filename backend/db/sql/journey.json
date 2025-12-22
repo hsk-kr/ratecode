@@ -4,5 +4,8 @@
   },
   {
     "name": "migrate_02.sql"
+  },
+  {
+    "name": "migrate_03.sql"
   }
 ]
