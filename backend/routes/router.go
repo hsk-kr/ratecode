@@ -72,11 +72,9 @@ func (r *Router) Register(mux *http.ServeMux) {
 
 	for subendpointPath, subendpoints := range r.endpoints {
 		apiPath := r.pathPrefix + subendpointPath
-		fmt.Println(apiPath)
 
 		mux.HandleFunc(apiPath, func(w http.ResponseWriter, r *http.Request) {
 			for _, subendpoint := range subendpoints {
-				fmt.Println(subendpoint)
 				if strings.EqualFold(subendpoint.method, r.Method) {
 
 					subendpoint.handler(w, r)

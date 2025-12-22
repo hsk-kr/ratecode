@@ -2,7 +2,6 @@ package routes
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"strings"
 
@@ -76,7 +75,6 @@ func HandleCreateCode(w http.ResponseWriter, r *http.Request) {
 	uuid, err := repositories.CreateCode(userId, body.Code, body.Language)
 
 	if err != nil {
-		fmt.Println(err)
 		BadRequest(w)
 		return
 	}
